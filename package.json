@@ -1,0 +1,24 @@
+{
+  "name": "ontego-file-watcher",
+  "description": "Ontego file watcher for Ontego Fore builder",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Commsult AG",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^1.7.0",
+    "fs": "0.0.1-security",
+    "jaydata-dynamic-metadata": "^0.1.18",
+    "js-beautify": "^1.6.14",
+    "os": "^0.1.1",
+    "path": "^0.12.7",
+    "webshot": "^0.18.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.4.1"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "watch": "tsc -w"
+  }
+}

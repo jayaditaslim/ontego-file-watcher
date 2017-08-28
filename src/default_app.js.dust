@@ -1,0 +1,57 @@
+var appModules = ['mdThemeColors', 'ngRoute', 'ngMaterial', 'ngMessages', 'pascalprecht.translate', 'signature', 'otg.directive.focusMe', 'otg.directive.otgMin', 'otg.directive.otgMax', 'otg.directive.otgNotIn',
+    'gl.init.service', 
+    // ONTEGO_APP_MODULES 
+];
+angular.module('ontegoForeApp', appModules)
+
+.config([ '$routeProvider', '$mdThemingProvider', '$translateProvider', function($routeProvider, $mdThemingProvider, $translateProvider) {
+	
+	var colors =  {
+        "primary" : {
+            "palette" : "red",
+            "base" : "700",
+            "hue1" : "700",
+            "hue2" : "800",
+            "hue3" : "900"
+        },
+        "accent" : {
+            "palette" : "indigo",
+            "base" : "A700",
+            "hue1" : "A400",
+            "hue2" : "A200",
+            "hue3" : "A100",
+            "contrastDefaultColor" : "light"
+        },
+        "background" : {
+            "palette" : "grey",
+            "base" : "50",
+            "hue1" : "100",
+            "hue2" : "200",
+            "hue3" : "300"
+        }
+	};
+	//theme amber accent text color white 
+    $mdThemingProvider._PALETTES[colors.accent.palette].contrastDefaultColor = colors.accent.contrastDefaultColor;
+    
+    //Theming
+    $mdThemingProvider.theme('default')
+         .primaryPalette(colors.primary.palette, {'default' : colors.primary.base,  'hue-1': colors.primary.hue1,  'hue-2': colors.primary.hue2,  'hue-3': colors.primary.hue3})
+         .accentPalette(colors.accent.palette, {'default' : colors.accent.base,  'hue-1': colors.accent.hue1,  'hue-2': colors.accent.hue2,  'hue-3': colors.accent.hue3})
+         .backgroundPalette(colors.background.palette, {'default' : colors.background.base,  'hue-1': colors.background.hue1,  'hue-2': colors.background.hue2,  'hue-3': colors.background.hue3});
+	
+    // localization
+    window.languageFiles = ["locale/UIResources.js", "locale/UIResources_de_DE.js", "locale/UIResources_en.js"];
+    var langMgnr = new otg.ui.LanguageManager();
+    langMgnr.init();
+    for (locale in langMgnr._languageObjs) {
+        $translateProvider.translations(locale, langMgnr._languageObjs[locale]);
+    }
+    $translateProvider.preferredLanguage("default"); // language from main.mapp
+    
+    $routeProvider.when('/#{startUri}', {
+        templateUrl : 'views/#{startTemplate}',
+    }).otherwise({
+        redirectTo : '/#{startUri}'
+    });
+
+} ]);
